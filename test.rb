@@ -16,13 +16,50 @@ describe List do
       assert_equal("fred", @list.find("fred").value())
     end
   end
+
+  describe "for a list with one item" do
+    before do
+      @list.add("fred")
+    end
+
+    it "does not return the only item when searching for another" do
+      assert_nil(@list.find("wilma"))
+    end
+  end
+
+  describe "for a list with two items" do
+    before do
+      @list.add("fred")
+      @list.add("wilma")
+    end
+
+    it "returns the correct first item when searched for" do
+      assert_equal("fred", @list.find("fred").value)
+    end
+
+    it "returns the correct second item when searched for" do
+      assert_equal("wilma", @list.find("wilma").value)
+    end
+
+    it "returns all values in an array" do
+      assert_equal(["fred", "wilma"], @list.values())
+    end
+
+    it "deletes an element by value" do
+      @list.delete(@list.find("wilma"))
+      assert_equal(["fred"], @list.values())
+    end
+  end
 end
 
 # list = List.new
 # assert_nil(list.find("fred"))
 # list.add("fred")
 # assert_equal("fred", list.find("fred").value())
+
+
 # assert_nil(list.find("wilma"))
+
 # list.add("wilma")
 # assert_equal("fred",  list.find("fred").value())
 # assert_equal("wilma", list.find("wilma").value())
